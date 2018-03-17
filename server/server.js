@@ -2,16 +2,14 @@ var express = require('express'),
     app = express(),
     port = process.env.PORT || 3000;
 
-var counter = 0;
-app.route('/counter').get(function (req, res) {
-    res.json({
-            'counter': counter
-        }
-    );
+var counter = "0";
+app.get('/counter', function (req, res) {
+    res.send(counter);
 });
-app.route('/counter/:value').put(function (req, res) {
-    counter = parseInt(req.params.value);
-    res.status(200).send();
+app.put('/counter/:value', function (req, res) {
+    counter = req.params.value;
 });
 
-app.listen(port);
+app.listen(port, function () {
+    console.log('running on ' + port);
+});
