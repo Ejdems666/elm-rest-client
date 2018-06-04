@@ -1,13 +1,17 @@
 var express = require('express'),
     app = express(),
-    port = process.env.PORT || 3000;
+    port = process.env.PORT || 3000,
+    cors = require('cors');
 
-var counter = "0";
+app.use(cors())
+
+var counter = 0;
 app.get('/counter', function (req, res) {
-    res.send(counter);
+    res.send(++counter + "");
 });
-app.put('/counter/:value', function (req, res) {
+app.post('/counter/:value', function (req, res) {
     counter = req.params.value;
+    res.send(counter + "");
 });
 
 app.listen(port, function () {
